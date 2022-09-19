@@ -35,4 +35,27 @@ export class ProductRepository implements IProductRepository {
     
         return product;
       }
+
+      public async save(product: Product): Promise<Product> {
+        await this.ormRepository.save(product);
+    
+        return product;
+      }
+
+      public async findOne(id: string): Promise<Product | null> {
+        const userFound = await this.ormRepository.findOne({
+          where: { _id: id },
+        });
+        return userFound;
+    }
+      
+      public async find(): Promise<Product[]> {
+        const products = await this.ormRepository.find();
+        return products;
+        }
+
+        public async remove(product: Product): Promise<void> {
+            await this.ormRepository.remove(product);
+          } 
+    
 }
