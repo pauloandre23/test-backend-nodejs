@@ -6,5 +6,7 @@ export const mockProduct = () => {
         category: "electronics",
         description: "usb dongle to entertain your tv",
         price: 100,
+        createdAt: new Date(),
+        updatedAt: new Date()
     })
 }
