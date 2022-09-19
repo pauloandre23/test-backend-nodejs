@@ -1,4 +1,5 @@
 import { Product } from "../domain/entities/Product";
+import { v4 } from "uuid";
 
 export const mockProduct = () => {
   return new Product({
@@ -34,4 +35,15 @@ export const mockProductList = () => {
   list.push(product2);
   list.push(product1);
   return list;
+}
+
+export const mockRequest = () => {
+  return {
+    "id": v4(),
+    "title": "Product Uno",
+    "description": "Still the best",
+    "price": 12.25,
+    "category": "Muamba",
+    
+  };
 }

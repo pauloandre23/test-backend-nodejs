@@ -1,9 +1,7 @@
 import "reflect-metadata";
 import ListProductService from "./ListProductService";
 import { ProductRepository } from "../infra/repository/ProductRepository";
-import { mockProduct, mockProductList } from "../__mocks__/ProductMock";
-import AppError from "../errors/AppError";
-import Product from "../domain/typeorm/entities/Product";
+import { mockProductList } from "../__mocks__/ProductMock";
 jest.mock("../infra/repository/ProductRepository");
 
 describe("List", () => {
