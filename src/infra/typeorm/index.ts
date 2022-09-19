@@ -7,6 +7,7 @@ export const AppDataSource = new DataSource({
     database: "somemongo",
     username: "paulofilho",
     password: "chama123",
+    port: 27017,
     synchronize: true,
     logging: ['query', 'error'],
     entities: [Product],

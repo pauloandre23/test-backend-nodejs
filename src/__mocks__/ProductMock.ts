@@ -1,12 +1,12 @@
-import { Product } from "../domain/entities/Product"
+import { Product } from "../domain/entities/Product";
 
 export const mockProduct = () => {
-    return new Product({
-        title: "Firestick v2",
-        category: "electronics",
-        description: "usb dongle to entertain your tv",
-        price: 100,
-        createdAt: new Date(),
-        updatedAt: new Date()
-    })
-}
+  return new Product({
+    title: "Firestick v2",
+    category: "electronics",
+    description: "usb dongle to entertain your tv",
+    price: 100,
+    created_at: new Date(),
+    updated_at: new Date(),
+  });
+};

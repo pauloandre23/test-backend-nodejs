@@ -1,7 +1,8 @@
-import { IProductRepository } from '../domain/IProductRepository';
-import { Product } from '../domain/entities/Product';
-import { injectable, inject } from 'tsyringe';
-import AppError from '../errors/AppError';
+import 'reflect-metadata';
+import { IProductRepository } from "../domain/IProductRepository";
+import Product from "../domain/typeorm/entities/Product";
+import { injectable, inject } from "tsyringe";
+import AppError from "../errors/AppError";
 
 interface IRequest {
   title: string;
@@ -13,11 +14,16 @@ interface IRequest {
 @injectable()
 class CreateProductService {
   constructor(
-    @inject('ProductMongoRepository')
-    private repository: IProductRepository,
+    @inject("ProductMongoRepository")
+    private repository: IProductRepository
   ) {}
 
-  public async execute({ title, price, description, category }: IRequest): Promise<Product> {
+  public async execute({
+    title,
+    price,
+    description,
+    category,
+  }: IRequest): Promise<Product> {
     const productExists = await this.repository.findByTitle(title);
     if (productExists) {
       throw new AppError(`Product ${title} already exists`);
@@ -27,7 +33,7 @@ class CreateProductService {
       title,
       price,
       category,
-      description
+      description,
     });
 
     await this.repository.save(product);

@@ -1,4 +1,4 @@
-import { Product } from "../domain/entities/Product";
+import Product from "../domain/typeorm/entities/Product";
 
 interface ICreateProduct {
   title: string;
@@ -12,6 +12,11 @@ export interface IProductRepository {
   find(): Promise<Product[]>;
   remove(product: Product): Promise<void>;
   findByTitle(name: string): Promise<Product | null>;
-  create({ title, price, category, description }: ICreateProduct): Promise<Product>;
+  create({
+    title,
+    price,
+    category,
+    description,
+  }: ICreateProduct): Promise<Product>;
   findOne(id: string): Promise<Product | null>;
 }
