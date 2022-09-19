@@ -5,7 +5,7 @@ import { mockProduct } from "../__mocks__/ProductMock";
 import AppError from "../errors/AppError";
 jest.mock("../infra/repository/ProductRepository");
 
-describe("Service", () => {
+describe("Create", () => {
   let createService: CreateProductService;
   let repository: ProductRepository;
 

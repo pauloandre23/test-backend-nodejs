@@ -6,7 +6,7 @@ import AppError from "../errors/AppError";
 import DeleteProductService from "./DeleteProductService";
 jest.mock("../infra/repository/ProductRepository");
 
-describe("Service", () => {
+describe("Delete", () => {
   let deleteService: DeleteProductService;
   let repository: ProductRepository;
 
