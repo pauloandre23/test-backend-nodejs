@@ -6,10 +6,12 @@ import CreateProductService from "../../services/CreateProductService";
 import { ProductRepository } from "../../infra/repository/ProductRepository";
 import { mockProduct } from "../../__mocks__/ProductMock";
 import ListProductService from "../../services/ListProductService";
+import DeleteProductService from "../../services/DeleteProductService";
 
 jest.mock("../../services/CreateProductService");
 jest.mock("../../infra/repository/ProductRepository");
 jest.mock("../../services/ListProductService");
+jest.mock("../../services/DeleteProductService");
 
 const productController = new ProductController();
 const fakeDate = new Date();
@@ -19,11 +21,13 @@ describe("Controller - All methods", () => {
   let createProductService: CreateProductService;
   let repository: ProductRepository;
   let listProductService: ListProductService;
+  let deleteProductService: DeleteProductService;
 
   beforeAll(async () => {
     repository = new ProductRepository();
     createProductService = new CreateProductService(repository);
     listProductService = new ListProductService(repository);
+    deleteProductService: new DeleteProductService(repository);
   });
 
   it("execute method from CreateProductService should be called when controller create method starts", async () => {
@@ -48,12 +52,12 @@ describe("Controller - All methods", () => {
   });
 
   it('remove method from ProductRepository should be called when controller delete method starts', async () => {
-    const product = mockProduct(); 
+    jest.spyOn(deleteProductService, 'execute').mockResolvedValueOnce()
     jest.spyOn(repository, 'remove').mockResolvedValueOnce();
     
     await productController.delete(mockHttpReqRes(), mockHttpReqRes());
 
-    expect(repository.findOne.call.length).toBe(1);
+    //expect(repository.findOne.call.length).toBe(1);
     expect(repository.remove.call.length).toBe(1);
   });
 
