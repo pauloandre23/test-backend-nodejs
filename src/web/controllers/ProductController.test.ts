@@ -4,8 +4,12 @@ import { app } from "../../app";
 import ProductController from "./ProductController";
 import CreateProductService from "../../services/CreateProductService";
 import { ProductRepository } from "../../infra/repository/ProductRepository";
+import { mockProduct } from "../../__mocks__/ProductMock";
+import ListProductService from "../../services/ListProductService";
 
 jest.mock("../../services/CreateProductService");
+jest.mock("../../infra/repository/ProductRepository");
+jest.mock("../../services/ListProductService");
 
 const productController = new ProductController();
 const fakeDate = new Date();
@@ -14,10 +18,12 @@ const fakeId = v4();
 describe("Controller - All methods", () => {
   let createProductService: CreateProductService;
   let repository: ProductRepository;
+  let listProductService: ListProductService;
 
   beforeAll(async () => {
     repository = new ProductRepository();
     createProductService = new CreateProductService(repository);
+    listProductService = new ListProductService(repository);
   });
 
   it("execute method from CreateProductService should be called when controller create method starts", async () => {
@@ -40,6 +46,26 @@ describe("Controller - All methods", () => {
 
       expect(response.status).toBe(201);
   });
+
+  it('remove method from ProductRepository should be called when controller delete method starts', async () => {
+    const product = mockProduct(); 
+    jest.spyOn(repository, 'remove').mockResolvedValueOnce();
+    
+    await productController.delete(mockHttpReqRes(), mockHttpReqRes());
+
+    expect(repository.findOne.call.length).toBe(1);
+    expect(repository.remove.call.length).toBe(1);
+  });
+
+  it("execute method from ListProductsUseCase should be called when controller index method starts", async () => {
+    jest
+      .spyOn(listProductService, "execute")
+      .mockResolvedValueOnce([mockResponse()]);
+
+    await productController.index(mockHttpReqRes(), mockHttpReqRes());
+
+    expect(listProductService.execute.call.length).toBe(1);
+  }, 30000);
 });
 
 const mockResponse = () => {
